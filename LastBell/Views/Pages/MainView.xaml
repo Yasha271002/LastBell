@@ -12,7 +12,9 @@
              x:Name="MainPage">
     <Grid Width="1920" Height="1080">
         <controls:BackgroundControl
-            BackgroundBrush="{StaticResource BackgroundGradientBrush}"/>
+            BackgroundBrush="{StaticResource BackgroundGradientBrush}"
+            ForegroundBrush="{StaticResource WhiteBrush}"
+            OpacityIcon="0.2"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -45,13 +47,15 @@
                                               HorizontalAlignment="Left"
                                               FontWeight="Bold"
                                               Foreground="{StaticResource ButtonForegroundBrush}"
-                                              Margin="0 64 0 0"/>
+                                              Margin="0 64 0 0"
+                                              Command="{Binding GoQuizPageCommand}"/>
                     <Image 
                         x:Name="FingerImage"
                         Source="/Resources/Images/TouchImage.png" 
                         Width="184"
                         Height="222"
                         HorizontalAlignment="Right"
+                        IsHitTestVisible="False"
                         VerticalAlignment="Bottom"
                         Margin="0 0 250 -120"
                         RenderTransformOrigin="0.5,0.5">
@@ -71,28 +75,28 @@
                                             From="0" To="-50"
                                             Duration="{StaticResource Duration}"
                                             AutoReverse="True"
-                                            EasingFunction="{StaticResource EaseInOut}"/>
+                                            EasingFunction="{StaticResource PowerEase}"/>
                                         <DoubleAnimation 
                                             Storyboard.TargetName="TranslateTransform"
                                             Storyboard.TargetProperty="Y"
                                             From="0" To="-50"
                                             Duration="{StaticResource Duration}"
                                             AutoReverse="True"
-                                            EasingFunction="{StaticResource EaseInOut}"/>
+                                            EasingFunction="{StaticResource PowerEase}"/>
                                         <DoubleAnimation 
                                             Storyboard.TargetName="ScaleTransform"
                                             Storyboard.TargetProperty="ScaleX"
                                             From="1" To="0.95"
                                             Duration="{StaticResource Duration}"
                                             AutoReverse="True"
-                                            EasingFunction="{StaticResource EaseInOut}"/>
+                                            EasingFunction="{StaticResource PowerEase}"/>
                                         <DoubleAnimation 
                                             Storyboard.TargetName="ScaleTransform"
                                             Storyboard.TargetProperty="ScaleY"
                                             From="1" To="0.95"
                                             Duration="{StaticResource Duration}"
                                             AutoReverse="True"
-                                            EasingFunction="{StaticResource EaseInOut}"/>
+                                            EasingFunction="{StaticResource PowerEase}"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

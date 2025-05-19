@@ -16,7 +16,7 @@ namespace LastBell.HostBuilders
                 services.AddSingleton<NavigationStore>();
                 services.AddUtilityNavigationServices<NavigationStore>();
                 services.AddNavigationService<MainPageViewModel, NavigationStore>();
-
+                services.AddNavigationService<QuizPageViewModel, NavigationStore>();
             });
 
             return builder;

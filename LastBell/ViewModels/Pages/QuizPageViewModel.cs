@@ -18,6 +18,14 @@ public partial class QuizPageViewModel(
 
     [ObservableProperty] private QuizModel _quiz1;
     [ObservableProperty] private QuizModel _quiz2;
+
+    [ObservableProperty] private bool _switchQuiz;
+    [ObservableProperty] private string _selectedImage = string.Empty;
+
+    private int _currentIndex;
+    
+    
+
     [RelayCommand] private void GoMainPage() => mainPageNavigationService.Navigate();
 
     [RelayCommand]
@@ -27,12 +35,53 @@ public partial class QuizPageViewModel(
     }
 
     [RelayCommand]
-    private void NextQuestion()
+    private void SelectAnswer(string category)
     {
-
+        switch (category)
+        {
+            
+        }
     }
 
-    private void GetContent()
+    [RelayCommand]
+    private async Task NextQuestion()
+    {
+        _currentIndex++;
+
+        await Switch();
+    }
+
+    [RelayCommand]
+    private async Task PreviewQuestion()
+    {
+    }
+
+    private async Task Switch()
+    {
+        if (_currentIndex >= QuizModels.Count)
+        {
+            _currentIndex = 0;
+        }
+
+        SwitchQuiz = !SwitchQuiz;
+
+        if (SwitchQuiz)
+        {
+            Quiz1 = QuizModels[_currentIndex];
+            SelectedImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "QuizImages", Quiz1.ImagePath.TrimStart('\\'));
+            await Task.Delay(1000); // Anim
+            Quiz2 = null;
+        }
+        else
+        {
+            Quiz2 = QuizModels[_currentIndex];
+            SelectedImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "QuizImages", Quiz2.ImagePath.TrimStart('\\'));
+            await Task.Delay(1000); // Anim
+            Quiz1 = null;
+        }
+    }
+
+    private async void GetContent()
     {
         try
         {
@@ -40,8 +89,9 @@ public partial class QuizPageViewModel(
             foreach (var quizModel in QuizModels)
             {
                 quizModel.Text = quizModel.Text.ToUpper();
-                quizModel.ImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, quizModel.ImagePath);
             }
+
+            await Switch();
         }
         catch (Exception e)
         {

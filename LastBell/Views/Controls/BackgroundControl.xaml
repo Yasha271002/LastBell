@@ -6,8 +6,17 @@
              xmlns:local="clr-namespace:LastBell.Views.Controls"
              mc:Ignorable="d" >
     <Grid Background="{Binding BackgroundBrush,RelativeSource={RelativeSource AncestorType=UserControl}}">
-        <ContentPresenter ContentTemplate="{StaticResource ItlabsIcon}" VerticalAlignment="Top"/>
-        <ContentPresenter ContentTemplate="{StaticResource ItlabsIcon}" VerticalAlignment="Center"/>
-        <ContentPresenter ContentTemplate="{StaticResource ItlabsIcon}" VerticalAlignment="Bottom"/>
+        <ContentControl ContentTemplate="{StaticResource ItlabsIcon}"
+                        Opacity="{Binding OpacityIcon,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        Foreground="{Binding ForegroundBrush,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        VerticalAlignment="Top" />
+        <ContentControl ContentTemplate="{StaticResource ItlabsIcon}" 
+                        Opacity="{Binding OpacityIcon,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        Foreground="{Binding ForegroundBrush,RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                        VerticalAlignment="Center"/>
+        <ContentControl ContentTemplate="{StaticResource ItlabsIcon}" 
+                        Opacity="{Binding OpacityIcon,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        Foreground="{Binding ForegroundBrush,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

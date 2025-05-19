@@ -3,4 +3,18 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <SineEase x:Key="EaseInOut" EasingMode="EaseInOut"/>
     <Duration x:Key="Duration">0:0:0.8</Duration>
+
+    <Duration x:Key="Duration2">0:0:1</Duration>
+    <Duration x:Key="DurationSwitch">0:0:0.5</Duration>
+    <Duration x:Key="ZeroDuration">0:0:0</Duration>
+
+    <system:TimeSpan x:Key="BeginTime2">0:0:1</system:TimeSpan>
+    <system:TimeSpan x:Key="SwitchBeginTime">0:0:0.5</system:TimeSpan>
+
+    <PowerEase x:Key="PowerEase"
+               Power="2"
+               EasingMode="EaseInOut" />
+    <PowerEase x:Key="PowerEase2"
+               Power="4"
+               EasingMode="EaseInOut" />
 </ResourceDictionary>

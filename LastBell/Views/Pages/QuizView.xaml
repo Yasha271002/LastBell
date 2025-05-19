@@ -3,8 +3,260 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
-    <Grid>
-            
+             xmlns:controls="clr-namespace:LastBell.Views.Controls"
+             xmlns:pages="clr-namespace:LastBell.ViewModels.Pages"
+             xmlns:models="clr-namespace:LastBell.Models"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:components="clr-namespace:MainComponents.Components;assembly=MainComponents"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance pages:QuizPageViewModel}">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction
+                Command="{Binding LoadedCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type models:AnswerModel}" x:Key="AnswerTemplate">
+           <RadioButton Focusable="False"
+                        Command="{Binding DataContext.SelectAnswerCommand,RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        CommandParameter="{Binding Category}">
+               <RadioButton.Template>
+                   <ControlTemplate TargetType="RadioButton">
+                       <Border Width="880" Height="128"
+                               Padding="16"
+                               CornerRadius="32"
+                               Margin="0 8"
+                               Background="{StaticResource WhiteBrush}">
+                           <Border.Effect>
+                               <DropShadowEffect BlurRadius="40"
+                                                 Opacity="0.5"
+                                                 Color="#2D3744"
+                                                 Direction="360"
+                                                 ShadowDepth="12" />
+                           </Border.Effect>
+                           <Grid>
+                               <Border HorizontalAlignment="Left"
+                                       Width="96" Height="96"
+                                       CornerRadius="16"
+                                       Padding="16"
+                                       Background="{StaticResource AnswerBackgroundBrush}">
+                                   <TextBlock Style="{StaticResource EuropeExtText}"
+                                              FontSize="48"
+                                              FontWeight="Bold"
+                                              Foreground="{StaticResource QuizTitleBrush}"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"
+                                              Text="{Binding Category}"/>
+                               </Border>
+                               <TextBlock Text="{Binding Text}"
+                                          Style="{StaticResource TTNormsText}"
+                                          FontSize="24"
+                                          FontWeight="Normal"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="144 0  0 0"
+                                          Foreground="{StaticResource AnswerForegroundBrush}"/>
+                           </Grid>
+                       </Border>
+                    </ControlTemplate>
+               </RadioButton.Template>
+           </RadioButton>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid Width="1920" Height="1080">
+        <controls:BackgroundControl 
+            BackgroundBrush="{StaticResource WhiteBrush}"
+            ForegroundBrush="{StaticResource GrayBackgroundBrush}"
+            OpacityIcon="0.6"/>
+        <Grid Margin="64">
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <TranslateTransform X="1920"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SwitchQuiz}"
+                                         Value="True">
+
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetProperty="RenderTransform.(TranslateTransform.X)">
+                                            <DoubleAnimation To="0"
+                                                             BeginTime="{StaticResource SwitchBeginTime}"
+                                                             Duration="{StaticResource Duration}"
+                                                             EasingFunction="{StaticResource PowerEase}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetProperty="RenderTransform.(TranslateTransform.X)">
+                                            <DoubleAnimation To="-1920"
+                                                             BeginTime="{StaticResource SwitchBeginTime}"
+                                                             Duration="{StaticResource Duration}"
+                                                             EasingFunction="{StaticResource PowerEase}"/>
+                                            <DoubleAnimation To="1920"
+                                                             BeginTime="{StaticResource BeginTime2}"
+                                                             Duration="{StaticResource ZeroDuration}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.ColumnSpan="2"
+                           Text="{Binding Quiz1.Text}"
+                           Style="{StaticResource EuropeExtText}"
+                           Foreground="{StaticResource QuizTitleBrush}"
+                           FontSize="48"
+                           FontWeight="Bold"/>
+                <ItemsControl ItemsSource="{Binding Quiz1.Answers}"
+                              ItemTemplate="{StaticResource AnswerTemplate}"
+                              Margin=" 0 0 0 150"
+                              VerticalAlignment="Bottom">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Left"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <Image Grid.Column="1"
+                       Source="{Binding SelectedImage, Converter={StaticResource ImageConverter}}"
+                       VerticalAlignment="Bottom"
+                       />
+            </Grid>
+
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <TranslateTransform X="0"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SwitchQuiz}"
+                                         Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetProperty="RenderTransform.(TranslateTransform.X)">
+                                            <DoubleAnimation To="-1920"
+                                                             BeginTime="{StaticResource SwitchBeginTime}"
+                                                             Duration="{StaticResource Duration}"
+                                                             EasingFunction="{StaticResource PowerEase}"/>
+                                            <DoubleAnimation To="1920"
+                                                             BeginTime="{StaticResource BeginTime2}"
+                                                             Duration="{StaticResource ZeroDuration}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard TargetProperty="RenderTransform.(TranslateTransform.X)">
+                                            <DoubleAnimation To="0"
+                                                             BeginTime="{StaticResource SwitchBeginTime}"
+                                                             Duration="{StaticResource Duration}"
+                                                             EasingFunction="{StaticResource PowerEase}"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.ColumnSpan="2"
+                           Text="{Binding Quiz2.Text}"
+                           Foreground="{StaticResource QuizTitleBrush}"
+                           Style="{StaticResource EuropeExtText}"
+                           FontSize="48"
+                           FontWeight="Bold"/>
+                <ItemsControl ItemsSource="{Binding Quiz2.Answers}"
+                              ItemTemplate="{StaticResource AnswerTemplate}"
+                              VerticalAlignment="Bottom"
+                              Margin=" 0 0 0 150">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Left"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <Image Grid.Column="1"
+                       Source="{Binding SelectedImage, Converter={StaticResource ImageConverter}}"
+                       Stretch="UniformToFill"
+                       VerticalAlignment="Bottom"/>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Bottom">
+                <components:RoundedButton Content="На главную"
+                                          Style="{StaticResource ButtonStyle}"
+                                          Background="{StaticResource ButtonForegroundBrush}"
+                                          Padding="40 24"
+                                          CornerRadius="36"
+                                          FontSize="24"
+                                          Width="318"
+                                          Height="77"
+                                          HorizontalAlignment="Left"
+                                          FontWeight="Bold"
+                                          Foreground="{StaticResource WhiteBrush}"
+                                          HorizontalContentAlignment="Center"
+                                          Command="{Binding GoMainPageCommand}"/>
+                <components:RoundedButton Content="Назад"
+                                          Style="{StaticResource ButtonStyle}"
+                                          Background="{StaticResource WhiteBrush}"
+                                          Padding="40 24"
+                                          CornerRadius="36"
+                                          FontSize="24"
+                                          Width="152"
+                                          Height="77"
+                                          HorizontalAlignment="Right"
+                                          FontWeight="Bold"
+                                          Foreground="{StaticResource ButtonForegroundBrush}"
+                                          HorizontalContentAlignment="Center"
+                                          Command="{Binding PreviewQuestionCommand}">
+                    <components:RoundedButton.Effect>
+                        <DropShadowEffect Opacity="0.1"
+                                          Color="#2D3744"
+                                          BlurRadius="12"/>
+                    </components:RoundedButton.Effect>
+                </components:RoundedButton>
+                <components:RoundedButton Content="Далее"
+                                          Style="{StaticResource ButtonStyle}"
+                                          Background="{StaticResource WhiteBrush}"
+                                          Padding="40 24"
+                                          CornerRadius="36"
+                                          Margin="16 0 0 0"
+                                          FontSize="24"
+                                          Width="152"
+                                          Height="77"
+                                          HorizontalAlignment="Right"
+                                          FontWeight="Bold"
+                                          Foreground="{StaticResource ButtonForegroundBrush}"
+                                          HorizontalContentAlignment="Center"
+                                          Command="{Binding NextQuestionCommand}">
+                    <components:RoundedButton.Effect>
+                        <DropShadowEffect Opacity="0.1"
+                                          Color="#2D3744"
+                                          BlurRadius="12"/>
+                    </components:RoundedButton.Effect>
+                </components:RoundedButton>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

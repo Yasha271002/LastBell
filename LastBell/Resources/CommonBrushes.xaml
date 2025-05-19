@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!--Здесь цвета даны для примера, замените на те, которые есть в макете-->
     <Color x:Key="BlackColor">#292929</Color>
     <Color x:Key="YellowColor">#FFBE02</Color>
     <Color x:Key="OrangeColor">#FE6A02</Color>
@@ -10,6 +9,9 @@
     <Color x:Key="BlueColor">#26AFF0</Color>
     <Color x:Key="BlueWhiteColor">#A8E2FF</Color>
     <Color x:Key="AccentBlueColor">#0095DB</Color>
+    <Color x:Key="GrayColor">#DCE6EF</Color>
+    <Color x:Key="OpacityBlueColor">#D8F2FF</Color>
+    <Color x:Key="DarkGrayColor">#58687C</Color>
 
     <SolidColorBrush x:Key="TextBrush" Color="{StaticResource BlackColor}"/>
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource YellowColor}"/>
@@ -18,6 +20,10 @@
 
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource WhiteColor}"/>
     <SolidColorBrush x:Key="ButtonForegroundBrush" Color="{StaticResource BlueColor}"/>
+    <SolidColorBrush x:Key="QuizTitleBrush" Color="{StaticResource BlueColor}"/>
+    <SolidColorBrush x:Key="GrayBackgroundBrush" Color="{StaticResource GrayColor}"/>
+    <SolidColorBrush x:Key="AnswerBackgroundBrush" Color="{StaticResource OpacityBlueColor}"/>
+    <SolidColorBrush x:Key="AnswerForegroundBrush" Color="{StaticResource DarkGrayColor}"/>
     <SolidColorBrush x:Key="TransparentBrush" Color="Transparent"/>
 
     <LinearGradientBrush x:Key="BackgroundGradientBrush" StartPoint="0 0" EndPoint="0 1">
