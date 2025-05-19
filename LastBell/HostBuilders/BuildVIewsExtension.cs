@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using LastBell.Managers;
 using LastBell.Models;
 using LastBell.ViewModels;
 using LastBell.ViewModels.Pages;
@@ -17,9 +18,9 @@ namespace LastBell.HostBuilders
         {
             builder.ConfigureServices((context, services) =>
             {
-                var inactivityConfig = context.Configuration.GetValue<InactivityConfig>("inactivity");
+                var inactivityConfig = context.Configuration.GetSection("inactivity").Get<InactivityConfig>();
                 services.AddSingleton<IMessenger>(_ => new WeakReferenceMessenger());
-
+                services.AddSingleton<JsonManager>();
                 services.AddSingleton<InactivityManager<MainPageViewModel>>(s => new InactivityManager<MainPageViewModel>(
                     inactivityConfig ?? new InactivityConfig(60, 10),
                     s.GetRequiredService<NavigationStore>(),

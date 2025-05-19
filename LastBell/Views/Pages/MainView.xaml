@@ -6,9 +6,103 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:components="clr-namespace:MainComponents.Components;assembly=MainComponents"
              xmlns:pages="clr-namespace:LastBell.ViewModels.Pages"
+             xmlns:controls="clr-namespace:LastBell.Views.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance pages:MainPageViewModel}"
              x:Name="MainPage">
+    <Grid Width="1920" Height="1080">
+        <controls:BackgroundControl
+            BackgroundBrush="{StaticResource BackgroundGradientBrush}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="64 108">
+                <ContentPresenter ContentTemplate="{StaticResource LogoIcon}"
+                                  Width="424"
+                                  HorizontalAlignment="Left"/>
 
+                <TextBlock Style="{StaticResource EuropeExtText}"
+                           FontSize="80"
+                           FontWeight="Bold"
+                           Text="ПРОЙДИ ТЕСТ И УЗНАЙ, КТО ТЫ В МИРЕ IT!"
+                           Foreground="{StaticResource WhiteBrush}"
+                           Margin="0 80 0 40"/>
+                <TextBlock Style="{StaticResource TTNormsText}"
+                           FontSize="40"
+                           FontWeight="Normal"
+                           Text="Короткий тест из восьми вопросов. Узнай, какая профессия подходит тебе больше всего"
+                           Foreground="{StaticResource WhiteBrush}"/>
+                <Grid>
+                    <components:RoundedButton Content="Пройти тест"
+                                              Style="{StaticResource ButtonStyle}"
+                                              Background="{StaticResource WhiteBrush}"
+                                              Padding="80 48"
+                                              CornerRadius="72"
+                                              FontSize="48"
+                                              Width="576"
+                                              HorizontalAlignment="Left"
+                                              FontWeight="Bold"
+                                              Foreground="{StaticResource ButtonForegroundBrush}"
+                                              Margin="0 64 0 0"/>
+                    <Image 
+                        x:Name="FingerImage"
+                        Source="/Resources/Images/TouchImage.png" 
+                        Width="184"
+                        Height="222"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 250 -120"
+                        RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <TranslateTransform x:Name="TranslateTransform"/>
+                                <ScaleTransform x:Name="ScaleTransform"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                        <Image.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="TranslateTransform"
+                                            Storyboard.TargetProperty="X"
+                                            From="0" To="-50"
+                                            Duration="{StaticResource Duration}"
+                                            AutoReverse="True"
+                                            EasingFunction="{StaticResource EaseInOut}"/>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="TranslateTransform"
+                                            Storyboard.TargetProperty="Y"
+                                            From="0" To="-50"
+                                            Duration="{StaticResource Duration}"
+                                            AutoReverse="True"
+                                            EasingFunction="{StaticResource EaseInOut}"/>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="ScaleTransform"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            From="1" To="0.95"
+                                            Duration="{StaticResource Duration}"
+                                            AutoReverse="True"
+                                            EasingFunction="{StaticResource EaseInOut}"/>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="ScaleTransform"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            From="1" To="0.95"
+                                            Duration="{StaticResource Duration}"
+                                            AutoReverse="True"
+                                            EasingFunction="{StaticResource EaseInOut}"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </StackPanel>
+            <Image Grid.Column="1"
+                   Source="/Resources/Images/GirlImage.png"
+                   VerticalAlignment="Bottom"/>
+        </Grid>
+    </Grid>
 </UserControl>

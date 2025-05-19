@@ -5,7 +5,7 @@
     <Style TargetType="components:RoundedButton" x:Key="DefaultButtonStyle">
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
+        <Setter Property="FontFamily" Value="{StaticResource TTNorms}"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="CornerRadius" Value="22"/>
         <Setter Property="Effect">
@@ -17,5 +17,23 @@
                     BlurRadius="20"/>
             </Setter.Value>
         </Setter>
+    </Style>
+    
+    <Style TargetType="components:RoundedButton" x:Key="ButtonStyle">
+        <Setter Property="FontFamily" Value="{StaticResource TTNorms}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="components:RoundedButton">
+                    <Border CornerRadius="{TemplateBinding CornerRadius}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter ContentTemplate="{TemplateBinding Content}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
     </Style>
 </ResourceDictionary>

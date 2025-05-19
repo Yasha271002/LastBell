@@ -8,7 +8,7 @@
         xmlns:windows="clr-namespace:LastBell.ViewModels.Windows"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="1920" Width="1080"
+        Height="1080" Width="1920"
         WindowState="Maximized"
         WindowStyle="None"
         d:DataContext="{d:DesignInstance windows:MainWindowViewModel}">
@@ -23,7 +23,7 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
     <Viewbox>
-        <Grid Height="1920" Width="1080">
+        <Grid Height="1080" Width="1920">
             <ContentPresenter
                 Content="{Binding CurrentViewModel}" />
             <components:ModalControl

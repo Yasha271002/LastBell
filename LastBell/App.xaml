@@ -8,6 +8,7 @@
                 <ResourceDictionary Source="/Resources/CommonBrushes.xaml"/>
                 <ResourceDictionary Source="/Resources/CommonConverters.xaml"/>
                 <ResourceDictionary Source="/Resources/Icons.xaml"/>
+                <ResourceDictionary Source="/Resources/Storyboardes.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/TextStyles.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="/Resources/DataTemplates/PopupDataTemplates.xaml"/>

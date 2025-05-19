@@ -7,6 +7,9 @@
     <Color x:Key="OrangeColor">#FE6A02</Color>
     <Color x:Key="AlmostWhite">#ECF5EF</Color>
     <Color x:Key="WhiteColor">#FFFFFF</Color>
+    <Color x:Key="BlueColor">#26AFF0</Color>
+    <Color x:Key="BlueWhiteColor">#A8E2FF</Color>
+    <Color x:Key="AccentBlueColor">#0095DB</Color>
 
     <SolidColorBrush x:Key="TextBrush" Color="{StaticResource BlackColor}"/>
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource YellowColor}"/>
@@ -14,5 +17,11 @@
     <SolidColorBrush x:Key="ThirdBrush" Color="{StaticResource AlmostWhite}"/>
 
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource WhiteColor}"/>
+    <SolidColorBrush x:Key="ButtonForegroundBrush" Color="{StaticResource BlueColor}"/>
     <SolidColorBrush x:Key="TransparentBrush" Color="Transparent"/>
+
+    <LinearGradientBrush x:Key="BackgroundGradientBrush" StartPoint="0 0" EndPoint="0 1">
+        <GradientStop Color="{StaticResource BlueWhiteColor}" Offset="0"/>
+        <GradientStop Color="{StaticResource AccentBlueColor}" Offset="1"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

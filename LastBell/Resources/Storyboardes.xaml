@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <SineEase x:Key="EaseInOut" EasingMode="EaseInOut"/>
+    <Duration x:Key="Duration">0:0:0.8</Duration>
+</ResourceDictionary>

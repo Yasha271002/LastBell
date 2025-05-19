@@ -1,17 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <FontFamily x:Key="Inter" >pack://application,,,/Resources/Fonts/#Inter</FontFamily>
-    <FontFamily x:Key="Rubik" >pack://application,,,/Resources/Fonts/#Rubik</FontFamily>
+    <FontFamily x:Key="TTNorms" >pack://application,,,/Resources/Fonts/#TTNorms</FontFamily>
+    <FontFamily x:Key="EuropeExt" >pack://application,,,/Resources/Fonts/#EuropeExt</FontFamily>
     <Style TargetType="TextBlock" x:Key="BaseTextStyle">
         <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
 
-    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextStyle}" x:Key="InterText">
-        <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextStyle}" x:Key="TTNormsText">
+        <Setter Property="FontFamily" Value="{StaticResource TTNorms}"/>
     </Style>
 
-    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextStyle}" x:Key="RubikText">
-        <Setter Property="FontFamily" Value="{StaticResource Rubik}"/>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextStyle}" x:Key="EuropeExtText">
+        <Setter Property="FontFamily" Value="{StaticResource EuropeExt}"/>
     </Style>
 </ResourceDictionary>
