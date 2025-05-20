@@ -59,7 +59,6 @@ public partial class QuizPageViewModel(
         await Switch();
         _isAnimated = false;
     }
-
     [RelayCommand]
     private async Task PreviewQuestion()
     {
@@ -75,7 +74,6 @@ public partial class QuizPageViewModel(
         await Switch();
         _isAnimated = false;
     }
-
     private async Task Switch()
     {
         var goNext = await HandleQuizCompletion();
@@ -109,14 +107,12 @@ public partial class QuizPageViewModel(
         UpdateProgress();
         HiddenImage = false;
     }
-
     private void UpdateProgress()
     {
         CurrentQuestionNumber = _currentIndex + 1;
         ProgressPercentage = (double)CurrentQuestionNumber / TotalQuestions * 100;
         ProgressPercentage = Math.Max(0, Math.Min(100, ProgressPercentage));
     }
-
     private async Task<bool> HandleQuizCompletion()
     {
         try
@@ -153,7 +149,6 @@ public partial class QuizPageViewModel(
 
         return true;
     }
-
     private async void GetContent()
     {
         try

@@ -16,7 +16,7 @@ namespace LastBell.HostBuilders
             {
                 services.AddSingleton<ModalNavigationStore>();
                 services.AddUtilityNavigationServices<ModalNavigationStore>();
-
+                services.AddNavigationService<ExitPopupViewModel, ModalNavigationStore>();
                 services.AddNavigationService<PasswordPopupViewModel, ModalNavigationStore>(s => new PasswordPopupViewModel(
                     s.GetRequiredService<CloseNavigationService<ModalNavigationStore>>(),
                     context.Configuration.GetValue<string>("exitPassword") ?? "1234"));
