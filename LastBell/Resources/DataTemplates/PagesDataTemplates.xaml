@@ -8,4 +8,7 @@
     <DataTemplate DataType="{x:Type pages:QuizPageViewModel}">
         <pages1:QuizView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type pages:ResultPageViewModel}">
+        <pages1:ResultView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>

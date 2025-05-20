@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace LastBell.Models;
 
@@ -15,4 +16,5 @@ public partial class AnswerModel : ObservableObject
 {
     [ObservableProperty] private string _text;
     [ObservableProperty] private string _category;
+    [ObservableProperty, JsonIgnore] private bool _isChecked;
 }

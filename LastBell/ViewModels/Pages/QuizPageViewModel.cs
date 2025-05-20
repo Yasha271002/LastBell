@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using System.Reflection.Metadata;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LastBell.Helpers;
 using LastBell.Managers;
 using LastBell.Models;
 using MvvmNavigationLib.Services;
@@ -12,9 +14,11 @@ namespace LastBell.ViewModels.Pages;
 public partial class QuizPageViewModel(
     JsonManager jsonManager,
     ILogger logger,
-    NavigationService<MainPageViewModel> mainPageNavigationService) : ObservableObject
+    NavigationService<MainPageViewModel> mainPageNavigationService,
+    ParameterNavigationService<ResultPageViewModel, ResultModel> resultNavigationService) : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<QuizModel> _quizModels;
+    [ObservableProperty] private ObservableCollection<ResultModel> _resultModels;
 
     [ObservableProperty] private QuizModel _quiz1;
     [ObservableProperty] private QuizModel _quiz2;
@@ -22,14 +26,19 @@ public partial class QuizPageViewModel(
     [ObservableProperty] private bool _switchQuiz;
     [ObservableProperty] private bool _hiddenImage;
     [ObservableProperty] private string _selectedImage = string.Empty;
-    [ObservableProperty] private string _navigationDirection = "Forward";
 
     private int _currentIndex;
     private string[] _images;
+    private bool _isAnimated;
+
+    private readonly PathHelper pathHelper = new();
+
+    [ObservableProperty] private int _currentQuestionNumber;
+    [ObservableProperty] private int _totalQuestions;
+    [ObservableProperty] private double _progressPercentage;
 
 
-    [RelayCommand]
-    private void GoMainPage() => mainPageNavigationService.Navigate();
+    [RelayCommand] private void GoMainPage() => mainPageNavigationService.Navigate();
 
     [RelayCommand]
     private void Loaded()
@@ -38,31 +47,30 @@ public partial class QuizPageViewModel(
     }
 
     [RelayCommand]
-    private void SelectAnswer(string category)
-    {
-        switch (category)
-        {
-        }
-    }
-
-    [RelayCommand]
     private async Task NextQuestion()
     {
+        if (_isAnimated)
+            return;
+        _isAnimated = true;
         _currentIndex++;
-        NavigationDirection = "Forward";
         await Switch();
+        _isAnimated = false;
     }
 
     [RelayCommand]
     private async Task PreviewQuestion()
     {
+        if (_isAnimated)
+            return;
+        _isAnimated = true;
         _currentIndex--;
         if (_currentIndex < 0)
         {
             _currentIndex = QuizModels.Count - 1;
         }
-        NavigationDirection = "Backward";
+
         await Switch();
+        _isAnimated = false;
     }
 
     private async Task Switch()
@@ -72,6 +80,7 @@ public partial class QuizPageViewModel(
             _currentIndex = 0;
         }
 
+        UpdateProgress();
         HiddenImage = true;
 
         SwitchQuiz = !SwitchQuiz;
@@ -80,38 +89,29 @@ public partial class QuizPageViewModel(
         {
             Quiz1 = QuizModels[_currentIndex];
             await Task.Delay(1000); // Anim
-            SelectedImage = ResolveImagePath(Quiz1?.ImagePath);
+            SelectedImage = pathHelper.ResolveImagePath(Quiz1?.ImagePath, "Resources\\QuizImages", logger);
             Quiz2 = null;
         }
         else
         {
             Quiz2 = QuizModels[_currentIndex];
             await Task.Delay(1000); // Anim
-            SelectedImage = ResolveImagePath(Quiz2?.ImagePath);
+            SelectedImage = pathHelper.ResolveImagePath(Quiz2?.ImagePath, "Resources\\QuizImages", logger);
             Quiz1 = null;
         }
 
         HiddenImage = false;
     }
 
-    private string ResolveImagePath(string relativePath)
+    private void UpdateProgress()
     {
-        if (string.IsNullOrEmpty(relativePath))
-        {
-            logger.Warning("Путь до изображения пустой или null");
-            return string.Empty;
-        }
+        CurrentQuestionNumber = _currentIndex + 1;
+        ProgressPercentage = (double)CurrentQuestionNumber / TotalQuestions * 100;
+        ProgressPercentage = Math.Max(0, Math.Min(100, ProgressPercentage));
+    }
 
-        var basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\QuizImages");
-        var fullPath = Path.Combine(basePath, relativePath);
-
-        if (File.Exists(fullPath))
-        {
-            return fullPath;
-        }
-
-        logger.Warning($"Изображение не найдено: {fullPath}");
-        return string.Empty;
+    private void ResultNavigation()
+    {
     }
 
     private async void GetContent()
@@ -119,10 +119,15 @@ public partial class QuizPageViewModel(
         try
         {
             QuizModels = jsonManager.ReadJson<ObservableCollection<QuizModel>>("Content");
+            ResultModels = jsonManager.ReadJson<ObservableCollection<ResultModel>>("ResultContent");
+
             foreach (var quizModel in QuizModels)
             {
                 quizModel.Text = quizModel.Text.ToUpper();
             }
+
+            TotalQuestions = QuizModels.Count;
+            UpdateProgress();
 
             await Switch();
         }

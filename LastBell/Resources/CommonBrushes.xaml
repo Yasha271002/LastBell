@@ -12,6 +12,8 @@
     <Color x:Key="GrayColor">#DCE6EF</Color>
     <Color x:Key="OpacityBlueColor">#D8F2FF</Color>
     <Color x:Key="DarkGrayColor">#58687C</Color>
+    <Color x:Key="LightBlackColor">#2D3744</Color>
+
 
     <SolidColorBrush x:Key="TextBrush" Color="{StaticResource BlackColor}"/>
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource YellowColor}"/>
@@ -24,6 +26,7 @@
     <SolidColorBrush x:Key="GrayBackgroundBrush" Color="{StaticResource GrayColor}"/>
     <SolidColorBrush x:Key="AnswerBackgroundBrush" Color="{StaticResource OpacityBlueColor}"/>
     <SolidColorBrush x:Key="AnswerForegroundBrush" Color="{StaticResource DarkGrayColor}"/>
+    <SolidColorBrush x:Key="ResultForegroundBrush" Color="{StaticResource LightBlackColor}"/>
     <SolidColorBrush x:Key="TransparentBrush" Color="Transparent"/>
 
     <LinearGradientBrush x:Key="BackgroundGradientBrush" StartPoint="0 0" EndPoint="0 1">

@@ -12,6 +12,7 @@
     <None Remove="Resources\Images\GirlImage.png" />
     <None Remove="Resources\Images\MainBackground.png" />
     <None Remove="Resources\Images\QuizBackground.png" />
+    <None Remove="Resources\Images\ResultBackground.png" />
     <None Remove="Resources\Images\TouchImage.png" />
   </ItemGroup>
 
@@ -42,6 +43,7 @@
     <Resource Include="Resources\Images\GirlImage.png" />
     <Resource Include="Resources\Images\MainBackground.png" />
     <Resource Include="Resources\Images\QuizBackground.png" />
+    <Resource Include="Resources\Images\ResultBackground.png" />
     <Resource Include="Resources\Images\TouchImage.png" />
   </ItemGroup>
 
@@ -50,6 +52,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ResultContent.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

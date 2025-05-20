@@ -2,4 +2,5 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:LastBell.Converters">
     <converters:ImageConverter Width="400" Height="400" x:Key="ImageConverter"/>
+    <converters:PercentageToWidthConverter x:Key="PercentageToWidthConverter"/>
 </ResourceDictionary>

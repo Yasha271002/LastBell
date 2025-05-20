@@ -18,15 +18,25 @@
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type models:AnswerModel}" x:Key="AnswerTemplate">
             <RadioButton Focusable="False"
-                         Command="{Binding DataContext.SelectAnswerCommand,RelativeSource={RelativeSource AncestorType=UserControl}}"
-                         CommandParameter="{Binding Category}">
+                         IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                         GroupName="1">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="RadioButton">
                         <Border Width="880" Height="128"
                                 Padding="16"
                                 CornerRadius="32"
-                                Margin="0 8"
-                                Background="{StaticResource WhiteBrush}">
+                                Margin="0 8">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{StaticResource WhiteBrush}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked,RelativeSource={RelativeSource TemplatedParent}}"
+                                                     Value="True">
+                                            <Setter Property="Background" Value="{StaticResource QuizTitleBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="40"
                                                   Opacity="0.05"
@@ -38,24 +48,44 @@
                                 <Border HorizontalAlignment="Left"
                                         Width="96" Height="96"
                                         CornerRadius="16"
-                                        Padding="16"
-                                        Background="{StaticResource AnswerBackgroundBrush}">
+                                        Padding="16">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="{StaticResource AnswerBackgroundBrush}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsChecked,RelativeSource={RelativeSource TemplatedParent}}"
+                                                             Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource WhiteBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
                                     <TextBlock Style="{StaticResource EuropeExtText}"
                                                FontSize="48"
                                                FontWeight="Bold"
-                                               Foreground="{StaticResource QuizTitleBrush}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"
+                                               Foreground="{StaticResource QuizTitleBrush}"
                                                Text="{Binding Category}" />
                                 </Border>
                                 <TextBlock Text="{Binding Text}"
-                                           Style="{StaticResource TTNormsText}"
                                            FontSize="24"
                                            FontWeight="Normal"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
-                                           Margin="144 0  0 0"
-                                           Foreground="{StaticResource AnswerForegroundBrush}" />
+                                           Margin="144 0  0 0">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock" BasedOn="{StaticResource TTNormsText}">
+                                            <Setter Property="Foreground" Value="{StaticResource AnswerForegroundBrush}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsChecked,RelativeSource={RelativeSource TemplatedParent}}"
+                                                             Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource WhiteBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -285,6 +315,39 @@
                                           Foreground="{StaticResource WhiteBrush}"
                                           HorizontalContentAlignment="Center"
                                           Command="{Binding GoMainPageCommand}" />
+
+                <Grid Height="56"
+                      Width="1092" 
+                      x:Name="ProgressBarGrid"
+                      VerticalAlignment="Center"
+                      Margin="32 0">
+                    <Border Background="#D8F2FF" CornerRadius="28"/>
+                    <Border x:Name="ProgressFill" Background="#26AFF0" CornerRadius="28" HorizontalAlignment="Left">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="MinWidth">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource PercentageToWidthConverter}">
+                                            <Binding Path="ProgressPercentage" FallbackValue="0"/>
+                                            <Binding Path="ActualWidth" ElementName="ProgressBarGrid"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <TextBlock 
+                               Foreground="#2D3744"
+                               Style="{StaticResource TTNormsText}"
+                               FontSize="24"
+                               FontWeight="Normal"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <Run Text="Вопрос"/>
+                        <Run Text="{Binding CurrentQuestionNumber}"/>
+                        <Run Text="из 8"/>
+                    </TextBlock>
+                </Grid>
                 <components:RoundedButton Content="Назад"
                                           Style="{StaticResource ButtonStyle}"
                                           Background="{StaticResource WhiteBrush}"
