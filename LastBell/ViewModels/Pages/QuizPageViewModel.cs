@@ -10,7 +10,7 @@ using Serilog;
 namespace LastBell.ViewModels.Pages;
 
 public partial class QuizPageViewModel(
-    JsonManager jsonManager, 
+    JsonManager jsonManager,
     ILogger logger,
     NavigationService<MainPageViewModel> mainPageNavigationService) : ObservableObject
 {
@@ -20,13 +20,16 @@ public partial class QuizPageViewModel(
     [ObservableProperty] private QuizModel _quiz2;
 
     [ObservableProperty] private bool _switchQuiz;
+    [ObservableProperty] private bool _hiddenImage;
     [ObservableProperty] private string _selectedImage = string.Empty;
+    [ObservableProperty] private string _navigationDirection = "Forward";
 
     private int _currentIndex;
-    
-    
+    private string[] _images;
 
-    [RelayCommand] private void GoMainPage() => mainPageNavigationService.Navigate();
+
+    [RelayCommand]
+    private void GoMainPage() => mainPageNavigationService.Navigate();
 
     [RelayCommand]
     private void Loaded()
@@ -39,7 +42,6 @@ public partial class QuizPageViewModel(
     {
         switch (category)
         {
-            
         }
     }
 
@@ -47,13 +49,20 @@ public partial class QuizPageViewModel(
     private async Task NextQuestion()
     {
         _currentIndex++;
-
+        NavigationDirection = "Forward";
         await Switch();
     }
 
     [RelayCommand]
     private async Task PreviewQuestion()
     {
+        _currentIndex--;
+        if (_currentIndex < 0)
+        {
+            _currentIndex = QuizModels.Count - 1;
+        }
+        NavigationDirection = "Backward";
+        await Switch();
     }
 
     private async Task Switch()
@@ -63,22 +72,46 @@ public partial class QuizPageViewModel(
             _currentIndex = 0;
         }
 
+        HiddenImage = true;
+
         SwitchQuiz = !SwitchQuiz;
 
         if (SwitchQuiz)
         {
             Quiz1 = QuizModels[_currentIndex];
-            SelectedImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "QuizImages", Quiz1.ImagePath.TrimStart('\\'));
             await Task.Delay(1000); // Anim
+            SelectedImage = ResolveImagePath(Quiz1?.ImagePath);
             Quiz2 = null;
         }
         else
         {
             Quiz2 = QuizModels[_currentIndex];
-            SelectedImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "QuizImages", Quiz2.ImagePath.TrimStart('\\'));
             await Task.Delay(1000); // Anim
+            SelectedImage = ResolveImagePath(Quiz2?.ImagePath);
             Quiz1 = null;
         }
+
+        HiddenImage = false;
+    }
+
+    private string ResolveImagePath(string relativePath)
+    {
+        if (string.IsNullOrEmpty(relativePath))
+        {
+            logger.Warning("Путь до изображения пустой или null");
+            return string.Empty;
+        }
+
+        var basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\QuizImages");
+        var fullPath = Path.Combine(basePath, relativePath);
+
+        if (File.Exists(fullPath))
+        {
+            return fullPath;
+        }
+
+        logger.Warning($"Изображение не найдено: {fullPath}");
+        return string.Empty;
     }
 
     private async void GetContent()

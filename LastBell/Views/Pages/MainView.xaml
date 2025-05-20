@@ -6,15 +6,13 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:components="clr-namespace:MainComponents.Components;assembly=MainComponents"
              xmlns:pages="clr-namespace:LastBell.ViewModels.Pages"
-             xmlns:controls="clr-namespace:LastBell.Views.Controls"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance pages:MainPageViewModel}"
              x:Name="MainPage">
     <Grid Width="1920" Height="1080">
-        <controls:BackgroundControl
-            BackgroundBrush="{StaticResource BackgroundGradientBrush}"
-            ForegroundBrush="{StaticResource WhiteBrush}"
-            OpacityIcon="0.2"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Images/MainBackground.png"/>
+        </Grid.Background>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

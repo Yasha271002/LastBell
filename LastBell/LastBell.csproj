@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\GirlImage.png" />
+    <None Remove="Resources\Images\MainBackground.png" />
+    <None Remove="Resources\Images\QuizBackground.png" />
     <None Remove="Resources\Images\TouchImage.png" />
   </ItemGroup>
 
@@ -38,6 +40,8 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\GirlImage.png" />
+    <Resource Include="Resources\Images\MainBackground.png" />
+    <Resource Include="Resources\Images\QuizBackground.png" />
     <Resource Include="Resources\Images\TouchImage.png" />
   </ItemGroup>
 
@@ -48,6 +52,10 @@
     <None Update="Content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Controls\" />
   </ItemGroup>
 
 </Project>

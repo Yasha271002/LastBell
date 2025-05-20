@@ -10,6 +10,7 @@
 
     <system:TimeSpan x:Key="BeginTime2">0:0:1</system:TimeSpan>
     <system:TimeSpan x:Key="SwitchBeginTime">0:0:0.5</system:TimeSpan>
+    <system:TimeSpan x:Key="HiddenBeginTime">0:0:0.2</system:TimeSpan>
 
     <PowerEase x:Key="PowerEase"
                Power="2"

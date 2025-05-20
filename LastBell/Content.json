@@ -1,7 +1,7 @@
 [
   {
-    "Text": "КТО ВАС ВОЛЬШЕ ВСЕГО ВДОХНОВЛЯЕТ В IT?",
-    "ImagePath": "\\Resources\\QuizImages\\FirstQuestion.png",
+    "Text": "ЧТО ВАС ВОЛЬШЕ ВСЕГО ВДОХНОВЛЯЕТ В IT?",
+    "ImagePath": "FirstQuestion.png",
     "Answers": [
       {
         "Text": "Возможность создавать что-то красивое и удобное для людей.",
@@ -28,7 +28,7 @@
   },
   {
     "Text": "Какую часть проекта вы считаете самой важной?",
-    "ImagePath": "\\Resources\\QuizImages\\SecondQuestion.png",
+    "ImagePath": "SecondQuestion.png",
     "Answers": [
       {
         "Text": "Визуальное оформление и пользовательский опыт.",
@@ -55,7 +55,7 @@
   },
   {
     "Text": "Как вы обычно подходите к решению проблемы?",
-    "ImagePath": "\\Resources\\QuizImages\\ThreeQuestion.png",
+    "ImagePath": "ThreeQuestion.png",
     "Answers": [
       {
         "Text": "Ищу креативные, нестандартные решения, основанные на эмпатии к пользователю.",
@@ -82,7 +82,7 @@
   },
   {
     "Text": "Что вас больше всего расстраивает в работе?",
-    "ImagePath": "\\Resources\\QuizImages\\FourQuestion.png",
+    "ImagePath": "FourQuestion.png",
     "Answers": [
       {
         "Text": "Игнорирование важности user experience.",
@@ -109,7 +109,7 @@
   },
   {
     "Text": "Как вы предпочитаете общаться в команде?",
-    "ImagePath": "\\Resources\\QuizImages\\FiveQuestion.png",
+    "ImagePath": "FiveQuestion.png",
     "Answers": [
       {
         "Text": "Мне скидывают картинки, я отправлю картинки - идеально.",
@@ -136,7 +136,7 @@
   },
   {
     "Text": "Что для вас значит сделано хорошо?",
-    "ImagePath": "\\Resources\\QuizImages\\SixQuestion.png",
+    "ImagePath": "SixQuestion.png",
     "Answers": [
       {
         "Text": "Если продукт красивый, то баги никто не заметит, им приятно пользоваться.",
@@ -163,7 +163,7 @@
   },
   {
     "Text": "Что вас больше мотивирует?",
-    "ImagePath": "\\Resources\\QuizImages\\SevenQuestion.png",
+    "ImagePath": "SevenQuestion.png",
     "Answers": [
       {
         "Text": "Все стрелочки, крестики и переходы интуитивны и понятны всем пользователям.",
@@ -190,7 +190,7 @@
   },
   {
     "Text": "Ваша реакция на критику вашей работы?",
-    "ImagePath": "\\Resources\\QuizImages\\EightQuestion.png",
+    "ImagePath": "EightQuestion.png",
     "Answers": [
       {
         "Text": "Выслушаю, попрошу конкретику. Если они хотят испортить – имеют право, значит будем вносить правки.",
