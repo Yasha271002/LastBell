@@ -10,6 +10,7 @@ namespace LastBell.ViewModels.Pages;
 public partial class ResultPageViewModel(ResultModel result, NavigationService<MainPageViewModel> mainPageNavigationService, ILogger logger) : ObservableObject
 {
     [ObservableProperty] private ResultModel _result = result;
+    [ObservableProperty] private string _image = string.Empty;
     private readonly PathHelper pathHelper = new();
 
     [RelayCommand] private void MainPageNavigation() => mainPageNavigationService.Navigate();
@@ -17,7 +18,7 @@ public partial class ResultPageViewModel(ResultModel result, NavigationService<M
     [RelayCommand]
     private void Loaded()
     {
-        Result.ImagePath = pathHelper.ResolveImagePath(Result.ImagePath, "Resources\\ResultImages", logger);
+        Image = pathHelper.ResolveImagePath(Result.ImagePath, "Resources\\ResultImages", logger);
         Result.Profession = Result.Profession.ToUpper();
     }
 

@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.IO;
-using System.Reflection.Metadata;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LastBell.Helpers;
@@ -36,7 +34,7 @@ public partial class QuizPageViewModel(
     [ObservableProperty] private int _currentQuestionNumber;
     [ObservableProperty] private int _totalQuestions;
     [ObservableProperty] private double _progressPercentage;
-
+    [ObservableProperty] private bool _isGoingBack;
 
     [RelayCommand] private void GoMainPage() => mainPageNavigationService.Navigate();
 
@@ -52,7 +50,14 @@ public partial class QuizPageViewModel(
         if (_isAnimated)
             return;
         _isAnimated = true;
+        IsGoingBack = false;
         _currentIndex++;
+
+        if (_currentIndex >= QuizModels.Count)
+        {
+            _currentIndex = 0;
+        }
+
         await Switch();
         _isAnimated = false;
     }
@@ -63,6 +68,7 @@ public partial class QuizPageViewModel(
         if (_isAnimated)
             return;
         _isAnimated = true;
+        IsGoingBack = true;
         _currentIndex--;
         if (_currentIndex < 0)
         {
@@ -75,15 +81,19 @@ public partial class QuizPageViewModel(
 
     private async Task Switch()
     {
+        var goNext = await HandleQuizCompletion();
+
+        if (goNext)
+            return;
+
         if (_currentIndex >= QuizModels.Count)
         {
             _currentIndex = 0;
         }
 
-        UpdateProgress();
         HiddenImage = true;
-
         SwitchQuiz = !SwitchQuiz;
+
 
         if (SwitchQuiz)
         {
@@ -99,7 +109,7 @@ public partial class QuizPageViewModel(
             SelectedImage = pathHelper.ResolveImagePath(Quiz2?.ImagePath, "Resources\\QuizImages", logger);
             Quiz1 = null;
         }
-
+        UpdateProgress();
         HiddenImage = false;
     }
 
@@ -110,8 +120,41 @@ public partial class QuizPageViewModel(
         ProgressPercentage = Math.Max(0, Math.Min(100, ProgressPercentage));
     }
 
-    private void ResultNavigation()
+    private async Task<bool> HandleQuizCompletion()
     {
+        try
+        {
+            var allAnswered = QuizModels.All(q => q.Answers.Any(a => a.IsChecked));
+            if (!allAnswered)
+            {
+                return false;
+            }
+
+            var categoryCounts = QuizModels
+                .SelectMany(q => q.Answers)
+                .Where(a => a.IsChecked)
+                .GroupBy(a => a.Category)
+                .Select(g => new { Category = g.Key, Count = g.Count() })
+                .ToList();
+
+            var maxCount = categoryCounts.Max(c => c.Count);
+            var topCategories = categoryCounts
+                .Where(c => c.Count == maxCount)
+                .OrderBy(c => c.Category)
+                .ToList();
+
+            var selectedCategory = topCategories.First().Category;
+
+            var result = ResultModels.FirstOrDefault(r => r.Category == selectedCategory);
+
+            resultNavigationService.Navigate(result);
+        }
+        catch (Exception ex)
+        {
+            logger.Error($"Ошибка выбора Result: {ex.Message}");
+        }
+
+        return true;
     }
 
     private async void GetContent()

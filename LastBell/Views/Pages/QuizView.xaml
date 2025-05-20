@@ -157,7 +157,6 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-
                 <Image Grid.Column="1"
                        Source="{Binding SelectedImage}"
                        VerticalAlignment="Bottom"

@@ -6,13 +6,20 @@
              xmlns:local="clr-namespace:LastBell.Views.Pages"
              xmlns:pages="clr-namespace:LastBell.ViewModels.Pages"
              xmlns:components="clr-namespace:MainComponents.Components;assembly=MainComponents"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance pages:ResultPageViewModel}">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction
+                Command="{Binding LoadedCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
     <Grid Width="1920" Height="1080">
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/Images/ResultBackground.png"/>
         </Grid.Background>
-        <StackPanel Margin="64 101" HorizontalAlignment="Center">
+        <StackPanel Margin="64 101 64 0" HorizontalAlignment="Center">
             <TextBlock Style="{StaticResource EuropeExtText}"
                        FontWeight="Bold"
                        FontSize="64"
@@ -25,7 +32,7 @@
                        HorizontalAlignment="Center"
                        Foreground="{StaticResource ResultForegroundBrush}"
                        Margin="0 24 0 48"/>
-            <Image Source="{Binding Result.ImagePath}"
+            <Image Source="{Binding Image}"
                    Width="360" Height="360"/>
             <TextBlock Style="{StaticResource TTNormsText}"
                        Text="{Binding Result.Profession}"
@@ -39,8 +46,10 @@
                        FontSize="24"
                        FontWeight="Normal"
                        HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="1185"
                        Foreground="{StaticResource AnswerForegroundBrush}"
-                       Margin="0 0 0 56"/>
+                       Margin="0 0 0 45"/>
             <components:RoundedButton Content="На главную"
                                       Style="{StaticResource ButtonStyle}"
                                       Background="{StaticResource ButtonForegroundBrush}"
@@ -49,7 +58,7 @@
                                       FontSize="24"
                                       Width="328"
                                       Height="77"
-                                      HorizontalAlignment="Left"
+                                      HorizontalAlignment="Center"
                                       FontWeight="Bold"
                                       Foreground="{StaticResource WhiteBrush}"
                                       HorizontalContentAlignment="Center"
