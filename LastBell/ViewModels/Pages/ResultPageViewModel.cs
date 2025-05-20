@@ -21,5 +21,4 @@ public partial class ResultPageViewModel(ResultModel result, NavigationService<M
         Image = pathHelper.ResolveImagePath(Result.ImagePath, "Resources\\ResultImages", logger);
         Result.Profession = Result.Profession.ToUpper();
     }
-
 }

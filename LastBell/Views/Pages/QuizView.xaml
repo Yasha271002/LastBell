@@ -234,6 +234,7 @@
                                     </BeginStoryboard>
                                 </DataTrigger.ExitActions>
                             </DataTrigger>
+
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>

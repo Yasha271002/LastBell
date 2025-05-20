@@ -34,7 +34,6 @@ public partial class QuizPageViewModel(
     [ObservableProperty] private int _currentQuestionNumber;
     [ObservableProperty] private int _totalQuestions;
     [ObservableProperty] private double _progressPercentage;
-    [ObservableProperty] private bool _isGoingBack;
 
     [RelayCommand] private void GoMainPage() => mainPageNavigationService.Navigate();
 
@@ -50,7 +49,6 @@ public partial class QuizPageViewModel(
         if (_isAnimated)
             return;
         _isAnimated = true;
-        IsGoingBack = false;
         _currentIndex++;
 
         if (_currentIndex >= QuizModels.Count)
@@ -68,7 +66,6 @@ public partial class QuizPageViewModel(
         if (_isAnimated)
             return;
         _isAnimated = true;
-        IsGoingBack = true;
         _currentIndex--;
         if (_currentIndex < 0)
         {
