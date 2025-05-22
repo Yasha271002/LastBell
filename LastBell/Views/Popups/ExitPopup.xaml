@@ -12,8 +12,8 @@
     <popupContainers:ScaleContainer>
         <Border Background="{StaticResource WhiteBrush}"
                 CornerRadius="68"
-                Width="880" Height="528">
-            <StackPanel Margin="40">
+                Width="880" Height="608">
+            <StackPanel Margin="40 40 40 0">
                 <ContentPresenter ContentTemplate="{StaticResource WarningIcon}"
                                   Width="128" Height="128"
                                   HorizontalAlignment="Center" />

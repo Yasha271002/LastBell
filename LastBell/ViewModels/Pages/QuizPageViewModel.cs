@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using LastBell.Helpers;
 using LastBell.Managers;
 using LastBell.Models;
+using LastBell.ViewModels.Popups;
 using MvvmNavigationLib.Services;
 using Serilog;
 
@@ -13,6 +14,7 @@ public partial class QuizPageViewModel(
     JsonManager jsonManager,
     ILogger logger,
     NavigationService<MainPageViewModel> mainPageNavigationService,
+    NavigationService<ExitPopupViewModel> exitNavigationService,
     ParameterNavigationService<ResultPageViewModel, ResultModel> resultNavigationService) : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<QuizModel> _quizModels;
@@ -34,7 +36,7 @@ public partial class QuizPageViewModel(
 
     private QuizModel _currentQuiz = new();
 
-    [RelayCommand] private void GoMainPage() => mainPageNavigationService.Navigate();
+    [RelayCommand] private void GoMainPage() => exitNavigationService.Navigate();
 
     [RelayCommand]
     private void Loaded()
