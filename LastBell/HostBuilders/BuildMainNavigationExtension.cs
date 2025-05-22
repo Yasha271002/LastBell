@@ -1,4 +1,5 @@
-﻿using LastBell.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using LastBell.Models;
 using LastBell.ViewModels;
 using LastBell.ViewModels.Pages;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,8 @@ namespace LastBell.HostBuilders
                 services.AddParameterNavigationService<ResultPageViewModel, NavigationStore, ResultModel>(s => param =>
                     new ResultPageViewModel(param,
                         s.GetRequiredService<NavigationService<MainPageViewModel>>(),
-                        s.GetRequiredService<ILogger>()));
+                        s.GetRequiredService<ILogger>(),
+                        s.GetRequiredService<IMessenger>()));
             });
 
             return builder;

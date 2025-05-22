@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows;
 using LastBell.ViewModels.Pages;
+using Button = System.Windows.Controls.Button;
 
 namespace LastBell.Helpers.Behavior;
 
@@ -25,6 +26,30 @@ public class ScrollViewerButtonsStateBehavior : Behavior<ScrollViewer>
         set => SetValue(RightButtonProperty, value);
     }
 
+    public static readonly DependencyProperty IsAnswerSelectedProperty = DependencyProperty.Register(
+        nameof(IsAnswerSelected), typeof(bool), typeof(ScrollViewerButtonsStateBehavior), new PropertyMetadata(default(bool), PropertyChangedCallback));
+
+    private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var behavior = (ScrollViewerButtonsStateBehavior)d;
+        behavior.UpdateButtonStates();
+    }
+
+    public bool IsAnswerSelected
+    {
+        get { return (bool)GetValue(IsAnswerSelectedProperty); }
+        set { SetValue(IsAnswerSelectedProperty, value); }
+    }
+
+    public static readonly DependencyProperty IsAnimatedProperty = DependencyProperty.Register(
+        nameof(IsAnimated), typeof(bool), typeof(ScrollViewerButtonsStateBehavior), new PropertyMetadata(default(bool), PropertyChangedCallback));
+
+    public bool IsAnimated
+    {
+        get { return (bool)GetValue(IsAnimatedProperty); }
+        set { SetValue(IsAnimatedProperty, value); }
+    }
+
     protected override void OnAttached()
     {
         base.OnAttached();
@@ -45,13 +70,7 @@ public class ScrollViewerButtonsStateBehavior : Behavior<ScrollViewer>
 
     private void UpdateButtonStates()
     {
-        var isAnswerSelected = false;
-        if (AssociatedObject.DataContext is QuizPageViewModel viewModel)
-        {
-            isAnswerSelected = viewModel.IsAnswerSelected;
-        }
-
-        if (AssociatedObject.HorizontalOffset <= 0)
+        if (AssociatedObject.HorizontalOffset <= 0 || IsAnimated)
         {
             LeftButton.IsEnabled = false;
             LeftButton.Opacity = 0.2;
@@ -62,15 +81,15 @@ public class ScrollViewerButtonsStateBehavior : Behavior<ScrollViewer>
             LeftButton.Opacity = 1;
         }
 
-        if (!isAnswerSelected)
-        {
-            RightButton.IsEnabled = false;
-            RightButton.Opacity = 0.2;
-        }
-        else
+        if (IsAnswerSelected && !IsAnimated)
         {
             RightButton.IsEnabled = true;
             RightButton.Opacity = 1;
+        }
+        else
+        {
+            RightButton.IsEnabled = false;
+            RightButton.Opacity = 0.2;
         }
     }
 }

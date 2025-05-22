@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows;
+using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
 
 namespace LastBell.Helpers.Behavior;
 
@@ -40,6 +42,8 @@ public class ScrollViewerBehavior : Behavior<Button>
         get => (double)GetValue(AnimatedOffsetProperty);
         set => SetValue(AnimatedOffsetProperty, value);
     }
+
+    private bool _isAnimated;
 
     private static void OnAnimatedOffsetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {

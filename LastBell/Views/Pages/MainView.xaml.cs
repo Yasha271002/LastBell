@@ -1,15 +1,11 @@
-﻿using System.Windows.Controls;
+﻿using UserControl = System.Windows.Controls.UserControl;
 
-namespace LastBell.Views.Pages
+namespace LastBell.Views.Pages;
+
+public partial class MainView : UserControl
 {
-    /// <summary>
-    /// Логика взаимодействия для MainView.xaml
-    /// </summary>
-    public partial class MainView : UserControl
+    public MainView()
     {
-        public MainView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

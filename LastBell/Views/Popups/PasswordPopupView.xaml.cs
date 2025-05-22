@@ -1,15 +1,11 @@
-﻿using System.Windows.Controls;
+﻿using UserControl = System.Windows.Controls.UserControl;
 
-namespace LastBell.Views.Popups
+namespace LastBell.Views.Popups;
+
+public partial class PasswordPopupView : UserControl
 {
-    /// <summary>
-    /// Логика взаимодействия для PasswordPopupView.xaml
-    /// </summary>
-    public partial class PasswordPopupView : UserControl
+    public PasswordPopupView()
     {
-        public PasswordPopupView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

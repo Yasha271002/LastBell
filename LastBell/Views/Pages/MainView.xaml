@@ -6,9 +6,16 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:components="clr-namespace:MainComponents.Components;assembly=MainComponents"
              xmlns:pages="clr-namespace:LastBell.ViewModels.Pages"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance pages:MainPageViewModel}"
              x:Name="MainPage">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction
+                Command="{Binding LoadedCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
     <Grid Width="1920" Height="1080">
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/Images/MainBackground.png"/>

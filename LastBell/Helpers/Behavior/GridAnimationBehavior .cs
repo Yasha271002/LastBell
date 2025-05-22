@@ -22,8 +22,7 @@ public class GridAnimationBehavior : Behavior<FrameworkElement>
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
-        var transform = AssociatedObject.RenderTransform as TranslateTransform;
-        if (transform == null) return;
+        if (AssociatedObject.RenderTransform is not TranslateTransform transform) return;
         var slideIn = new DoubleAnimation
         {
             From = SlideInFrom,
@@ -36,8 +35,7 @@ public class GridAnimationBehavior : Behavior<FrameworkElement>
 
     private async void OnUnloaded(object sender, RoutedEventArgs e)
     {
-        var transform = AssociatedObject.RenderTransform as TranslateTransform;
-        if (transform == null) return;
+        if (AssociatedObject.RenderTransform is not TranslateTransform transform) return;
         var slideOut = new DoubleAnimation
         {
             From = 0,

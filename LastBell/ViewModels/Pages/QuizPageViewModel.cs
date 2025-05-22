@@ -23,7 +23,7 @@ public partial class QuizPageViewModel(
     [ObservableProperty] private string _selectedImage = string.Empty;
 
     private int _currentIndex;
-    private bool _isAnimated;
+    [ObservableProperty] private bool _isAnimated;
 
     private readonly PathHelper pathHelper = new();
 
@@ -55,6 +55,7 @@ public partial class QuizPageViewModel(
     [RelayCommand]
     private async Task NextQuestion()
     {
+        IsAnimated = true;
         _currentIndex++;
 
         if (_currentIndex >= QuizModels.Count)
@@ -63,10 +64,15 @@ public partial class QuizPageViewModel(
         }
 
         await Switch();
+
+        await Task.Delay(500);
+        IsAnimated = false;
     }
     [RelayCommand]
     private async Task PreviewQuestion()
     {
+
+        IsAnimated = true;
         _currentIndex--;
         if (_currentIndex < 0)
         {
@@ -74,12 +80,15 @@ public partial class QuizPageViewModel(
         }
 
         await Switch();
+        await Task.Delay(500);
+        IsAnimated = false;
     }
     private async Task Switch()
     {
         var goNext = await HandleQuizCompletion();
         if (goNext) return;
         _currentQuiz = QuizModels[_currentIndex];
+        IsAnswerSelected = _currentQuiz.Answers.Any(a => a.IsChecked);
         UpdateProgress();
     }
     private void UpdateProgress()

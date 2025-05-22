@@ -4,9 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LastBell.Views.Windows"
+        xmlns:windows="clr-namespace:LastBell.ViewModels.Windows"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behavior="clr-namespace:LastBell.Helpers.Behavior"
         mc:Ignorable="d"
-        Title="VideoWindow" Height="450" Width="800">
-    <Grid>
-        
+        WindowStyle="None"
+        Title="VideoWindow" 
+        d:DataContext="{d:DesignInstance windows:VideoWindowViewModel}">
+    <Grid Background="Black">
+        <MediaElement Source="{Binding SelectedVideo}"
+                      LoadedBehavior="Play"
+                      UnloadedBehavior="Manual">
+            <b:Interaction.Behaviors>
+                <behavior:MediaElementLoopBehavior />
+            </b:Interaction.Behaviors>
+        </MediaElement>
     </Grid>
 </Window>

@@ -104,9 +104,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.ColumnSpan="1"
+                <TextBlock Grid.ColumnSpan="2"
                            Text="{Binding Text}"
                            FontSize="48"
+                           Style="{StaticResource EuropeExtText}"
                            Foreground="{StaticResource ButtonForegroundBrush}"
                            FontWeight="Bold"
                            Width="1792"
@@ -123,7 +124,8 @@
                 </ItemsControl>
                 <Image Grid.Column="1" Source="{Binding ImagePath}" VerticalAlignment="Bottom"
                        Stretch="Uniform"
-                       Margin="0  0 -16 0"/>
+                       Margin="0  40 -51 0"/>
+                
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -182,7 +184,6 @@
             </Grid>
             <components:RoundedButton Content="Назад"
                                       x:Name="LeftNavigationButton"
-                                      Style="{StaticResource ButtonStyle}"
                                       Background="{StaticResource WhiteBrush}"
                                       Padding="40 24"
                                       CornerRadius="36"
@@ -194,6 +195,11 @@
                                       Foreground="{StaticResource ButtonForegroundBrush}"
                                       HorizontalContentAlignment="Center"
                                       Command="{Binding PreviewQuestionCommand}">
+                <components:RoundedButton.Style>
+                    <Style TargetType="components:RoundedButton" BasedOn="{StaticResource ButtonStyle}">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </Style>
+                </components:RoundedButton.Style>
                 <b:Interaction.Behaviors>
                     <behavior:ScrollViewerBehavior
                         ScrollViewer="{Binding ElementName=MainScrollViewer}"
@@ -245,7 +251,9 @@
                         DurationSeconds="1.5" />
                     <behavior:ScrollViewerButtonsStateBehavior
                         LeftButton="{Binding ElementName=LeftNavigationButton}"
-                        RightButton="{Binding ElementName=RightNavigationButton}" />
+                        RightButton="{Binding ElementName=RightNavigationButton}" 
+                        IsAnswerSelected="{Binding IsAnswerSelected}"
+                        IsAnimated="{Binding IsAnimated}"/>
                 </b:Interaction.Behaviors>
                 <Grid>
                     <ItemsControl ItemsSource="{Binding QuizModels}"
