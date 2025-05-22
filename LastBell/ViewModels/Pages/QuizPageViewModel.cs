@@ -18,15 +18,11 @@ public partial class QuizPageViewModel(
     [ObservableProperty] private ObservableCollection<QuizModel> _quizModels;
     [ObservableProperty] private ObservableCollection<ResultModel> _resultModels;
 
-    [ObservableProperty] private QuizModel _quiz1;
-    [ObservableProperty] private QuizModel _quiz2;
-
     [ObservableProperty] private bool _switchQuiz;
     [ObservableProperty] private bool _hiddenImage;
     [ObservableProperty] private string _selectedImage = string.Empty;
 
     private int _currentIndex;
-    private string[] _images;
     private bool _isAnimated;
 
     private readonly PathHelper pathHelper = new();
@@ -34,6 +30,9 @@ public partial class QuizPageViewModel(
     [ObservableProperty] private int _currentQuestionNumber;
     [ObservableProperty] private int _totalQuestions;
     [ObservableProperty] private double _progressPercentage;
+    [ObservableProperty] private bool _isAnswerSelected;
+
+    private QuizModel _currentQuiz = new();
 
     [RelayCommand] private void GoMainPage() => mainPageNavigationService.Navigate();
 
@@ -44,11 +43,18 @@ public partial class QuizPageViewModel(
     }
 
     [RelayCommand]
+    private void SelectAnswer(AnswerModel model)
+    {
+        foreach (var answer in _currentQuiz.Answers)
+        {
+            answer.IsChecked = (answer == model);
+        }
+        IsAnswerSelected = true;
+    }
+
+    [RelayCommand]
     private async Task NextQuestion()
     {
-        if (_isAnimated)
-            return;
-        _isAnimated = true;
         _currentIndex++;
 
         if (_currentIndex >= QuizModels.Count)
@@ -57,14 +63,10 @@ public partial class QuizPageViewModel(
         }
 
         await Switch();
-        _isAnimated = false;
     }
     [RelayCommand]
     private async Task PreviewQuestion()
     {
-        if (_isAnimated)
-            return;
-        _isAnimated = true;
         _currentIndex--;
         if (_currentIndex < 0)
         {
@@ -72,40 +74,13 @@ public partial class QuizPageViewModel(
         }
 
         await Switch();
-        _isAnimated = false;
     }
     private async Task Switch()
     {
         var goNext = await HandleQuizCompletion();
-
-        if (goNext)
-            return;
-
-        if (_currentIndex >= QuizModels.Count)
-        {
-            _currentIndex = 0;
-        }
-
-        HiddenImage = true;
-        SwitchQuiz = !SwitchQuiz;
-
-
-        if (SwitchQuiz)
-        {
-            Quiz1 = QuizModels[_currentIndex];
-            await Task.Delay(1000); // Anim
-            SelectedImage = pathHelper.ResolveImagePath(Quiz1?.ImagePath, "Resources\\QuizImages", logger);
-            Quiz2 = null;
-        }
-        else
-        {
-            Quiz2 = QuizModels[_currentIndex];
-            await Task.Delay(1000); // Anim
-            SelectedImage = pathHelper.ResolveImagePath(Quiz2?.ImagePath, "Resources\\QuizImages", logger);
-            Quiz1 = null;
-        }
+        if (goNext) return;
+        _currentQuiz = QuizModels[_currentIndex];
         UpdateProgress();
-        HiddenImage = false;
     }
     private void UpdateProgress()
     {
@@ -159,6 +134,7 @@ public partial class QuizPageViewModel(
             foreach (var quizModel in QuizModels)
             {
                 quizModel.Text = quizModel.Text.ToUpper();
+                quizModel.ImagePath = pathHelper.ResolveImagePath(quizModel.ImagePath, "Resources\\QuizImages", logger);
             }
 
             TotalQuestions = QuizModels.Count;
