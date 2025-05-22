@@ -124,7 +124,9 @@
                 </ItemsControl>
                 <Image Grid.Column="1" Source="{Binding ImagePath}" VerticalAlignment="Bottom"
                        Stretch="Uniform"
-                       Margin="0  40 -51 0"/>
+                       MaxHeight="1100"
+                       HorizontalAlignment="Right"
+                       Margin="0  40 0 0"/>
                 
             </Grid>
         </DataTemplate>

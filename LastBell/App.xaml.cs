@@ -59,10 +59,10 @@ public partial class App : Application
 
         var secondWind = _appHost.Services.GetRequiredService<VideoWindow>();
         secondWind.WindowStyle = WindowStyle.None;
-        secondWind.Left = videoScreen.Bounds.Left;
-        secondWind.Top = videoScreen.Bounds.Top;
-        secondWind.Width = videoScreen.Bounds.Width;
-        secondWind.Height = videoScreen.Bounds.Height;
+        secondWind.Left = videoScreen.Bounds.Left - 10;
+        secondWind.Top = videoScreen.Bounds.Top - 10;
+        secondWind.Width = videoScreen.Bounds.Width + 50;
+        secondWind.Height = videoScreen.Bounds.Height + 50;
 
         MainWindow.Show();
         secondWind.Owner = MainWindow;
