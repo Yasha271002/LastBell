@@ -11,4 +11,7 @@
     <DataTemplate DataType="{x:Type pages:ResultPageViewModel}">
         <pages1:ResultView DataContext="{Binding}"/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type pages:StartPageViewModel}">
+        <pages1:StartView DataContext="{Binding}"/>
+    </DataTemplate>
 </ResourceDictionary>

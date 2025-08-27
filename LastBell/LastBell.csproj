@@ -12,7 +12,9 @@
 	<ItemGroup>
 		<None Remove="Resources\Images\GirlImage.png" />
 		<None Remove="Resources\Images\MainBackground.png" />
+		<None Remove="Resources\Images\puzzlesBtn.png" />
 		<None Remove="Resources\Images\QuizBackground.png" />
+		<None Remove="Resources\Images\quizBtn.png" />
 		<None Remove="Resources\Images\ResultBackground.png" />
 		<None Remove="Resources\Images\TouchImage.png" />
 	</ItemGroup>
@@ -103,7 +105,9 @@
 		</Resource>
 		<Resource Include="Resources\Images\GirlImage.png" />
 		<Resource Include="Resources\Images\MainBackground.png" />
+		<Resource Include="Resources\Images\PuzzlesBtn.png" />
 		<Resource Include="Resources\Images\QuizBackground.png" />
+		<Resource Include="Resources\Images\QuizBtn.png" />
 		<Resource Include="Resources\Images\ResultBackground.png" />
 		<Resource Include="Resources\Images\TouchImage.png" />
 	</ItemGroup>

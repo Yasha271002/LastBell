@@ -46,7 +46,7 @@ public partial class App : Application
         var jsonManager = new JsonManager();
         var settings = jsonManager.ReadJson<ScreenModel>(Path.Combine(Directory.GetCurrentDirectory(), "screen"));
         var initialNavigationService =
-            _appHost.Services.GetRequiredService<NavigationService<MainPageViewModel>>();
+            _appHost.Services.GetRequiredService<NavigationService<StartPageViewModel>>();
         initialNavigationService.Navigate();
         var videoScreen = Screen.AllScreens[settings.VideoScreen];
         var mainScreen = Screen.AllScreens[settings.MainScreen];

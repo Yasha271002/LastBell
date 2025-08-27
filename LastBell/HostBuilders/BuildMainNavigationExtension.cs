@@ -26,6 +26,7 @@ namespace LastBell.HostBuilders
                         s.GetRequiredService<NavigationService<MainPageViewModel>>(),
                         s.GetRequiredService<ILogger>(),
                         s.GetRequiredService<IMessenger>()));
+                services.AddNavigationService<StartPageViewModel, NavigationStore>();
             });
 
             return builder;
