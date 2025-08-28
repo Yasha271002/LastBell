@@ -3,6 +3,7 @@ using LastBell.Helpers;
 using LastBell.Models;
 using MvvmNavigationLib.Services;
 using MvvmNavigationLib.Stores;
+using System.Diagnostics;
 
 namespace LastBell.ViewModels
 {
@@ -47,6 +48,30 @@ namespace LastBell.ViewModels
 
         private void _inactivity_OnInactivity(int inactivityTime)
         {
+            try
+            {
+                var processes = Process.GetProcessesByName("ChromeHelper");
+
+                foreach (var process in processes)
+                {
+                    if (!process.HasExited)
+                    {
+                        process.CloseMainWindow();
+                        Thread.Sleep(1000);
+
+                        if (!process.HasExited)
+                        {
+                            process.Kill();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+
+
             if (_mainStore.CurrentViewModel is TInitialViewModel) return;
             _initialNavigationService.Navigate();
         }

@@ -18,7 +18,7 @@ namespace LastBell.ViewModels.Windows
         private int _sec;
         private readonly NavigationStore _navigationStore;
         private readonly ModalNavigationStore _modalNavigationStore;
-        private readonly InactivityManager<MainPageViewModel> _inactivityManager;
+        private readonly InactivityManager<StartPageViewModel> _inactivityManager;
         private readonly NavigationService<PasswordPopupViewModel> _passwordNavigationService;
 
         public ObservableObject? CurrentViewModel => _navigationStore.CurrentViewModel;
@@ -30,7 +30,7 @@ namespace LastBell.ViewModels.Windows
             IMessenger messenger,
             NavigationStore navigationStore,
             ModalNavigationStore modalNavigationStore,
-            InactivityManager<MainPageViewModel> inactivityManager,
+            InactivityManager<StartPageViewModel> inactivityManager,
             NavigationService<PasswordPopupViewModel> passwordNavigationService)
         {
             _messenger=messenger;

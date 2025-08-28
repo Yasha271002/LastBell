@@ -22,10 +22,10 @@ public static class BuildViewsExtension
             var inactivityConfig = context.Configuration.GetSection("inactivity").Get<InactivityConfig>();
             services.AddSingleton<IMessenger>(_ => new WeakReferenceMessenger());
             services.AddSingleton<JsonManager>();
-            services.AddSingleton<InactivityManager<MainPageViewModel>>(s => new InactivityManager<MainPageViewModel>(
+            services.AddSingleton<InactivityManager<StartPageViewModel>>(s => new InactivityManager<StartPageViewModel>(
                 inactivityConfig ?? new InactivityConfig(60, 10),
                 s.GetRequiredService<NavigationStore>(),
-                s.GetRequiredService<NavigationService<MainPageViewModel>>(),
+                s.GetRequiredService<NavigationService<StartPageViewModel>>(),
                 s.GetRequiredService<CloseNavigationService<ModalNavigationStore>>()));
             services.AddSingleton<VideoWindowViewModel>();
             services.AddSingleton<MainWindowViewModel>();
