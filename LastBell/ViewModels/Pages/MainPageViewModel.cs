@@ -6,9 +6,10 @@ using MvvmNavigationLib.Services;
 
 namespace LastBell.ViewModels.Pages;
 
-public partial class MainPageViewModel(NavigationService<QuizPageViewModel> quizPageNavigationService, IMessenger messenger) : ObservableObject
+public partial class MainPageViewModel(NavigationService<QuizPageViewModel> quizPageNavigationService,NavigationService<StartPageViewModel> startPageNavigationService, IMessenger messenger) : ObservableObject
 {
     [RelayCommand] private void GoQuizPage() => quizPageNavigationService.Navigate();
+    [RelayCommand] private void GoStartPage() => startPageNavigationService.Navigate();
 
     [RelayCommand]
     private void Loaded()

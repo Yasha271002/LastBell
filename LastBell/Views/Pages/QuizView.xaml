@@ -110,7 +110,7 @@
                            Style="{StaticResource EuropeExtText}"
                            Foreground="{StaticResource ButtonForegroundBrush}"
                            FontWeight="Bold"
-                           Width="1792"
+                           Width="1750"
                            Margin="64 0 0 0"/>
                 <ItemsControl ItemsSource="{Binding Answers}"
                               ItemTemplate="{StaticResource AnswerTemplate}"
@@ -266,9 +266,24 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
+
+                   
                 </Grid>
             </ScrollViewer>
-
+ <components:RoundedButton
+                        Height="74"
+                        Width="74"
+                        Grid.Column="1"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="64 0"
+                        Command="{Binding GoStartPageCommand}"
+                    >
+                <components:RoundedButton.Content>
+                    <ContentPresenter ContentTemplate="{StaticResource CloseIcon}"
+                                              HorizontalAlignment="Left"/>
+                        </components:RoundedButton.Content>
+                    </components:RoundedButton>
 
         </Grid>
     </Grid>

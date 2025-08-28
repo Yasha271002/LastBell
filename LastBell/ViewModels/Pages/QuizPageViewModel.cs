@@ -14,7 +14,7 @@ public partial class QuizPageViewModel(
     JsonManager jsonManager,
     ILogger logger,
     NavigationService<MainPageViewModel> mainPageNavigationService,
-    NavigationService<ExitPopupViewModel> exitNavigationService,
+    ParameterNavigationService<ExitPopupViewModel, bool> exitNavigationService,
     ParameterNavigationService<ResultPageViewModel, ResultModel> resultNavigationService) : ObservableObject
 {
     [ObservableProperty] private ObservableCollection<QuizModel> _quizModels;
@@ -36,7 +36,8 @@ public partial class QuizPageViewModel(
 
     private QuizModel _currentQuiz = new();
 
-    [RelayCommand] private void GoMainPage() => exitNavigationService.Navigate();
+    [RelayCommand] private void GoMainPage() => exitNavigationService.Navigate(false);
+    [RelayCommand] private void GoStartPage() => exitNavigationService.Navigate(true);
 
     [RelayCommand]
     private void Loaded()

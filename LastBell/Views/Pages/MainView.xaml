@@ -112,6 +112,20 @@
             <Image Grid.Column="1"
                    Source="/Resources/Images/GirlImage.png"
                    VerticalAlignment="Bottom"/>
+            <components:RoundedButton
+                Height="74"
+                Width="74"
+                Grid.Column="1"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="64"
+                Command="{Binding GoStartPageCommand}"
+                >
+                <components:RoundedButton.Content>
+                    <ContentPresenter ContentTemplate="{StaticResource CloseIcon}"
+                                      HorizontalAlignment="Left"/>
+                </components:RoundedButton.Content>
+            </components:RoundedButton>
         </Grid>
     </Grid>
 </UserControl>
