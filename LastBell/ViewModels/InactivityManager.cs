@@ -51,18 +51,23 @@ namespace LastBell.ViewModels
             try
             {
                 var processes = Process.GetProcessesByName("ChromeHelper");
+                var processes2 = Process.GetProcesses()
+                    .Where(p => p.ProcessName.ToLower().Contains("chrome"))
+                    .ToArray();
+
 
                 foreach (var process in processes)
                 {
                     if (!process.HasExited)
                     {
                         process.CloseMainWindow();
-                        Thread.Sleep(1000);
-
-                        if (!process.HasExited)
-                        {
-                            process.Kill();
-                        }
+                    }
+                }
+                foreach (var process in processes2)
+                {
+                    if (!process.HasExited)
+                    {
+                        process.CloseMainWindow();
                     }
                 }
             }
