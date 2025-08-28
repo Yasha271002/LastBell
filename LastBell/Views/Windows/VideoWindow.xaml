@@ -28,11 +28,13 @@
                 <behavior:MediaElementLoopBehavior />
             </b:Interaction.Behaviors>
         </MediaElement>
-        <Border
-            Background="#26AFF0"
-            Visibility="{Binding ShowLogo, Converter={StaticResource BoolToVisibilityConverter}}">
-        <ContentPresenter ContentTemplate="{StaticResource LogoIcon}"
-                          />
-       </Border>
+        <MediaElement Source="{Binding SelectedVideo}"
+                      LoadedBehavior="Play"
+                      UnloadedBehavior="Manual"
+                      Visibility="{Binding ShowLogo, Converter={StaticResource BoolToVisibilityConverter}}">
+            <b:Interaction.Behaviors>
+                <behavior:MediaElementLoopBehavior />
+            </b:Interaction.Behaviors>
+        </MediaElement>
     </Grid>
 </Window>

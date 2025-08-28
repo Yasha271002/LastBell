@@ -1,7 +1,9 @@
-﻿using System.IO;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using LastBell.Helpers.Messages;
+using System.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
 
 namespace LastBell.ViewModels.Windows;
 
@@ -25,6 +27,7 @@ public partial class VideoWindowViewModel : ObservableObject, IRecipient<VideoSe
         });
 
         ShowLogo = true;
+        SelectVideo("All");
     }
 
     public void Receive(VideoSelectionMessage message)
@@ -41,18 +44,17 @@ public partial class VideoWindowViewModel : ObservableObject, IRecipient<VideoSe
     {
         ShowLogo = message.ShowLogo;
 
-        if (ShowLogo)
-        {
-            SelectedVideo = null;
-        }
+        SelectVideo("All");
+
     }
 
     private void SelectVideo(string category)
     {
         try
         {
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Videos");
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Videos");
             var videos = Directory.GetFiles(path);
+           
             SelectedVideo = videos.First(path => path.Contains(category)) ?? videos.FirstOrDefault();
         }
         catch (Exception e)
