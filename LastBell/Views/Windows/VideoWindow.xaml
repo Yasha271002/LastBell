@@ -12,12 +12,27 @@
         Title="VideoWindow" 
         d:DataContext="{d:DesignInstance windows:VideoWindowViewModel}">
     <Grid Background="Black">
-        <MediaElement Source="{Binding SelectedVideo}"
+        <!--<MediaElement Source="{Binding SelectedVideo}"
                       LoadedBehavior="Play"
                       UnloadedBehavior="Manual">
             <b:Interaction.Behaviors>
                 <behavior:MediaElementLoopBehavior />
             </b:Interaction.Behaviors>
+        </MediaElement>-->
+
+        <MediaElement Source="{Binding SelectedVideo}"
+                      LoadedBehavior="Play"
+                      UnloadedBehavior="Manual"
+                      Visibility="{Binding ShowLogo, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+            <b:Interaction.Behaviors>
+                <behavior:MediaElementLoopBehavior />
+            </b:Interaction.Behaviors>
         </MediaElement>
+        <Border
+            Background="#26AFF0"
+            Visibility="{Binding ShowLogo, Converter={StaticResource BoolToVisibilityConverter}}">
+        <ContentPresenter ContentTemplate="{StaticResource LogoIcon}"
+                          />
+       </Border>
     </Grid>
 </Window>

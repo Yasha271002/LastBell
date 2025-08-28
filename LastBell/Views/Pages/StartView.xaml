@@ -97,7 +97,8 @@
             <components:RoundedButton
                 Width="880"
                 Height="816"
-                CornerRadius="80">
+                CornerRadius="80"
+                Command="{Binding LaunchHttpHelperCommand}">
                 <components:RoundedButton.Background>
                     <ImageBrush ImageSource="/Resources/Images/PuzzlesBtn.png"></ImageBrush>
                 </components:RoundedButton.Background>

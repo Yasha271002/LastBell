@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LastBell.Helpers;
+using LastBell.Helpers.Messages;
 using LastBell.ViewModels.Pages;
 using LastBell.ViewModels.Popups;
 using MvvmNavigationLib.Services;
@@ -24,6 +25,7 @@ namespace LastBell.ViewModels.Windows
         public ObservableObject? CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
         public bool IsModalOpen => _modalNavigationStore.CurrentViewModel is not null;
 
+        private readonly IMessenger _messenger;
         public MainWindowViewModel(
             IMessenger messenger,
             NavigationStore navigationStore,
@@ -31,13 +33,13 @@ namespace LastBell.ViewModels.Windows
             InactivityManager<MainPageViewModel> inactivityManager,
             NavigationService<PasswordPopupViewModel> passwordNavigationService)
         {
+            _messenger=messenger;
             _navigationStore = navigationStore;
             _modalNavigationStore = modalNavigationStore;
             _inactivityManager = inactivityManager;
             _passwordNavigationService = passwordNavigationService;
             messenger.RegisterAll(this);
         }
-
 
         private void Timer(object? sender, EventArgs eventArgs)
         {
@@ -78,8 +80,14 @@ namespace LastBell.ViewModels.Windows
             _timer.Start();
         }
 
-        public void Receive(ViewModelChangedMessage message) => OnPropertyChanged(nameof(CurrentViewModel));
+        public void Receive(ViewModelChangedMessage message)
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
 
+            var showLogo = CurrentViewModel is StartPageViewModel;
+            _messenger.Send(new VideoStateMessage(showLogo));
+
+        }
         public void Receive(ModalViewModelChangedMessage message)
         {
             OnPropertyChanged(nameof(CurrentModalViewModel));

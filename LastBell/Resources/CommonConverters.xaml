@@ -3,4 +3,6 @@
                     xmlns:converters="clr-namespace:LastBell.Converters">
     <converters:ImageConverter Width="400" Height="400" x:Key="ImageConverter"/>
     <converters:PercentageToWidthConverter x:Key="PercentageToWidthConverter"/>
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
 </ResourceDictionary>

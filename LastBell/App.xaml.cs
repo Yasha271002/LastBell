@@ -48,7 +48,7 @@ public partial class App : Application
         var initialNavigationService =
             _appHost.Services.GetRequiredService<NavigationService<StartPageViewModel>>();
         initialNavigationService.Navigate();
-        //var videoScreen = Screen.AllScreens[settings.VideoScreen];
+        var videoScreen = Screen.AllScreens[settings.VideoScreen];
         var mainScreen = Screen.AllScreens[settings.MainScreen];
 
         MainWindow = _appHost.Services.GetRequiredService<MainWindow>();
@@ -57,16 +57,16 @@ public partial class App : Application
         MainWindow.Width = mainScreen.Bounds.Width;
         MainWindow.Height = mainScreen.Bounds.Height;
 
-        //var secondWind = _appHost.Services.GetRequiredService<VideoWindow>();
-        //secondWind.WindowStyle = WindowStyle.None;
-        //secondWind.Left = videoScreen.Bounds.Left - 10;
-        //secondWind.Top = videoScreen.Bounds.Top - 10;
-        //secondWind.Width = videoScreen.Bounds.Width + 50;
-        //secondWind.Height = videoScreen.Bounds.Height + 50;
+        var secondWind = _appHost.Services.GetRequiredService<VideoWindow>();
+        secondWind.WindowStyle = WindowStyle.None;
+        secondWind.Left = videoScreen.Bounds.Left - 10;
+        secondWind.Top = videoScreen.Bounds.Top - 10;
+        secondWind.Width = videoScreen.Bounds.Width + 50;
+        secondWind.Height = videoScreen.Bounds.Height + 50;
 
         MainWindow.Show();
-        //secondWind.Owner = MainWindow;
-        //secondWind.Show();
+        secondWind.Owner = MainWindow;
+        secondWind.Show();
         await _appHost.StartAsync();
         base.OnStartup(e);
     }
